@@ -3,11 +3,7 @@ import { IsNotEmpty, IsNumber, IsString, isString, MaxLength, MinLength } from "
 export class tagsDTO {
 
     id?: number|string 
-    @IsString()
-    @MinLength(3)
-    @MaxLength(15)
-    @IsNotEmpty()
-    name:string
+   
 
     @IsString()
     @IsNotEmpty()
