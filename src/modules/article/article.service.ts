@@ -29,12 +29,12 @@ async getArticleById({id}){
         
     let user=await this.userModel.findById(author)  
     if(!user) return'not user'
-        const imgPath=files.map(ele=>ele.originalname)
+        const imgPath=files.map(ele=>ele.filename)
     let article=await this.aritcleModel.insertMany({...aricleData,images:imgPath,author:user._id})
     // let article=await this.aritcleModel.insertMany({...aricleData,coverImg:file.originalname,author:user._id})
     return{message:'added',Article:article}
     }
-    
+
      async deleteArticle(id){
         let article=await this.aritcleModel.findByIdAndDelete(id)
         if(!article) return {message:'article not exist'}

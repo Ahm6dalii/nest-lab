@@ -6,10 +6,21 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Tag, tagSchema } from 'src/core/schema/tags.schema';
 import { User, userSchema } from 'src/core/schema/users.schema';
 import { MulterModule } from '@nestjs/platform-express';
+import { extname } from 'path';
+import * as multer from 'multer';
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './upload');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + extname(file.originalname));
+  },
+});
 
 @Module({
   imports: [ MulterModule.register({
-    dest: './upload',
+   storage
   }),MongooseModule.forFeature([{ name: Article.name, schema: articleSchema }, { name: Tag.name, schema: tagSchema },{ name: User.name, schema:userSchema }])],
   controllers: [ArticleController],
   providers: [ArticleService],
