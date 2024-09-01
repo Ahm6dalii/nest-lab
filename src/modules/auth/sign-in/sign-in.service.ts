@@ -17,7 +17,7 @@ export class SignInService {
             let foundUser=await this.userModel.findOne({email:body.email});            
             if(foundUser && await bcrypt.compare(body.password,foundUser.password))
             {
-                let token= await this.jwtService.sign({name:foundUser.name,email:foundUser.email},{secret:"ahmed"})
+                let token= await this.jwtService.sign({name:foundUser.name,email:foundUser.email,id:foundUser._id},{secret:"ahmed"})
                 return{message:"success",token}
             }else{
                 throw new HttpException("invaild email or password",HttpStatus.BAD_REQUEST)

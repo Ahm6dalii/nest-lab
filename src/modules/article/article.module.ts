@@ -8,6 +8,7 @@ import { User, userSchema } from 'src/core/schema/users.schema';
 import { MulterModule } from '@nestjs/platform-express';
 import { extname } from 'path';
 import * as multer from 'multer';
+import { JwtService } from '@nestjs/jwt';
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './upload');
@@ -23,6 +24,6 @@ const storage = multer.diskStorage({
    storage
   }),MongooseModule.forFeature([{ name: Article.name, schema: articleSchema }, { name: Tag.name, schema: tagSchema },{ name: User.name, schema:userSchema }])],
   controllers: [ArticleController],
-  providers: [ArticleService],
+  providers: [ArticleService,JwtService],
 })
 export class ArticleModule {}

@@ -11,7 +11,7 @@ constructor(@InjectModel(Article.name) private aritcleModel:Model<Article>,@Inje
 {}
 
 async getAllArticle() {
-    return {Article: await this.aritcleModel.find()}
+    return {Article: await this.aritcleModel.find().populate('author tags','name email title -_id')}
     }
      
 async getArticleById({id}){
